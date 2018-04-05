@@ -737,7 +737,7 @@ namespace yol
             alignments.Add(alignment);
             landxml.Add(alignments);
             maindocument.Add(landxml);
-            maindocument.Save("foo.xml");
+            maindocument.Save("landxml.xml");
 
 
 
