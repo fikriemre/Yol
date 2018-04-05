@@ -105,7 +105,7 @@ namespace yol
 
         private void FormPopup_Load(object sender, EventArgs e)
         {
-
+            //burası popup load
         }
         void ResetView()
         {
