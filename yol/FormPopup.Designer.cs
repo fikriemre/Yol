@@ -54,7 +54,7 @@
             // 
             // zoomInButton
             // 
-            this.zoomInButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.zoomInButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.zoomInButton.Image = ((System.Drawing.Image)(resources.GetObject("zoomInButton.Image")));
             this.zoomInButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomInButton.Name = "zoomInButton";
@@ -64,7 +64,7 @@
             // 
             // zoomOutButton
             // 
-            this.zoomOutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.zoomOutButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.zoomOutButton.Image = ((System.Drawing.Image)(resources.GetObject("zoomOutButton.Image")));
             this.zoomOutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomOutButton.Name = "zoomOutButton";
@@ -79,21 +79,21 @@
             // 
             // nextButton
             // 
-            this.nextButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.nextButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.nextButton.Image = ((System.Drawing.Image)(resources.GetObject("nextButton.Image")));
             this.nextButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(23, 22);
+            this.nextButton.Size = new System.Drawing.Size(35, 22);
             this.nextButton.Text = "Next";
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
             // beforeButton
             // 
-            this.beforeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.beforeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.beforeButton.Image = ((System.Drawing.Image)(resources.GetObject("beforeButton.Image")));
             this.beforeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.beforeButton.Name = "beforeButton";
-            this.beforeButton.Size = new System.Drawing.Size(23, 22);
+            this.beforeButton.Size = new System.Drawing.Size(34, 22);
             this.beforeButton.Text = "Prev";
             this.beforeButton.Click += new System.EventHandler(this.beforeButton_Click);
             // 
