@@ -17,7 +17,7 @@ namespace yol
         System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Color.Red);
         float offsetx = 0;
         float offsety = 0;
-        float[] scales = { 0.5f, 1.0f, 2f, 3f, 10f };
+        float[] scales = { 10f, 20f,30f,40f,50f };
         int defscale = 4;
         public FormPopup()
         {
@@ -48,12 +48,41 @@ namespace yol
                         if (k == 0) e.Graphics.DrawString(s.ToString(), font, new SolidBrush(Color.Black), new PointF(pp[k].X, pp[k].Y - (2 * scales[defscale])));
                         if (k == 0 && s == 1) {
                             offsetx = offsetx - pp[k].X;
-                            offsety = offsety - pp[k].Y;
+                            offsety = offsety - pp[k].Y - 50;
                         }
                     }
                     e.Graphics.DrawLines(pen, pp);
                 }
             }
+        }
+
+        private void zoomInButton_Click(object sender, EventArgs e)
+        {
+            defscale++;
+            if (defscale == scales.Length) defscale = scales.Length - 1;
+
+            this.Invalidate();
+        }
+
+        private void zoomOutButton_Click(object sender, EventArgs e)
+        {
+            defscale--;
+            if (defscale < 0) defscale = 0;
+
+            this.Invalidate();
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            offsety = offsety + 100;
+            this.Invalidate();
+        }
+
+        private void beforeButton_Click(object sender, EventArgs e)
+        {
+
+            offsety = offsety - 100;
+            this.Invalidate();
         }
     }
 }

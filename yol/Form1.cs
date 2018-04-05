@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace yol
-{//
+{
     public partial class Form1 : Form
     {
         List<double> points = new List<double>();
@@ -391,7 +391,6 @@ namespace yol
 
         private void Read_Path(object sender, EventArgs e)
         {
-            //cok basit yorum satırı
             string _path = PathTextBox.Text;
             string readText;
             if (File.Exists(_path))
