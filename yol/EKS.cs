@@ -18,6 +18,8 @@ namespace yol
             kesitName = _kn;
             point = _kp;
             //muzodeneme
+
+
         }
 
     }
