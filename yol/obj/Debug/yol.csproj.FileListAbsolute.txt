@@ -27,3 +27,6 @@ C:\Users\Senkro\source\repos\yol\yol\obj\Debug\yol.FormPopup.resources
 D:\isler\Intersan\ceviri\Yol\yol\bin\Debug\yol.exe.config
 D:\isler\Intersan\ceviri\Yol\yol\obj\Debug\yol.exe
 D:\isler\Intersan\ceviri\Yol\yol\obj\Debug\yol.pdb
+C:\Users\yigit\Documents\GitHub\Yol\yol\bin\Debug\yol.exe.config
+C:\Users\yigit\Documents\GitHub\Yol\yol\obj\Debug\yol.exe
+C:\Users\yigit\Documents\GitHub\Yol\yol\obj\Debug\yol.pdb

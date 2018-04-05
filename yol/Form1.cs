@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace yol
-{
+{//
     public partial class Form1 : Form
     {
         List<double> points = new List<double>();
