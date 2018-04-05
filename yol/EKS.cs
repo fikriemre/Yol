@@ -23,7 +23,7 @@ namespace yol
     public class Kesit
     {
         public List<KesitPoint> kesitPoints = new List<KesitPoint>();
-        float baslangic;
+        public float baslangic;
         public Kesit(float _b)
         {
             baslangic = _b;
