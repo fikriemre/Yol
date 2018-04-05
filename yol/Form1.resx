@@ -117,38 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="richTextBox1.Text" xml:space="preserve">
-    <value>460636.30800
-4627620.78100
-460872.23150
-4627849.17310
-461440.99490
-4628105.16770
-462182.84010
-4627765.30570
-464218.49380
-4628547.56980
-464608.76460
-4628608.70180
-465245.85840
-4628875.49590
-466949.61070
-4630578.62910
-466769.10030
-4631759.80640
-467581.00400
-4631799.86400
-467965.58600
-4631887.84700
-472708.94000
-4632156.39700
-473283.73900
-4632300.60500
-475038.02300
-4632568.27800
-476352.14900
-4634006.16300</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

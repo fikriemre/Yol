@@ -105,28 +105,7 @@ namespace yol
             }
 
 
-            if (kesitler != null)
-            {
-                for (int s = 0; s < kesitler.Count; s++)
-                {
-                    pp = new PointF[kesitler[s].kesitPoints.Count];
-                    for (int k = 0; k < kesitler[s].kesitPoints.Count; k++)
-                    {
-                        pp[k] = kesitler[s].kesitPoints[k].point;
-
-                        pp[k].X = ((pp[k].X + 500) * scales[defscale]) + offsetx;
-                        pp[k].Y = ((pp[k].Y + (s * 12)) * scales[defscale]) + offsety;
-
-                        Font font = new Font(FontFamily.GenericSansSerif, 0.3f * scales[defscale], FontStyle.Regular);
-                        e.Graphics.DrawString(kesitler[s].kesitPoints[k].kesitName, font, new SolidBrush(Color.Black), pp[k]);
-                        if (k == 0) e.Graphics.DrawString(s.ToString(), font, new SolidBrush(Color.Black), new PointF(pp[k].X, pp[k].Y - (2 * scales[defscale])));
-                        //System.Diagnostics.Trace.WriteLine("X: " + points[m+1].ToString() + "Y: " + points[m + 2].ToString());
-                        //e.Graphics.DrawEllipse(pen2, new Rectangle(new Point((int)pp[k].X, (int)pp[k].Y), new Size((int)scales[defscale], (int)scales[defscale])));
-                        if (k == 0 && s == 1) { k_point = pp[k]; }
-                    }
-                    e.Graphics.DrawLines(pen, pp);
-                }
-            }
+          
 
 
 
@@ -317,77 +296,7 @@ namespace yol
             updateGraphic();
         }
 
-        private void button10_Click(object sender, EventArgs e)
-        {
-            double Xa = noktalarint[0];
-            double Xb = noktalarint[2];
-            double Xc = noktalarint[4];
-            double Ya = noktalarint[1];
-            double Yb = noktalarint[3];
-            double Yc = noktalarint[5];
-            double v1x = Xc - Xb;
-            double v1y = Yc - Yb;
-            double v2x = Xa - Xb;
-            double v2y = Ya - Yb;
 
-            double angle = Math.Atan2(v1x, v1y) - Math.Atan2(v2x, v2y);
-            angle = angle * (180 / Math.PI);
-            if (angle > 360) angle = 360 - angle;
-            angle = 180 - angle;
-
-            button10.Text = angle.ToString(System.Globalization.CultureInfo.CurrentUICulture);
-
-
-            double os = 600 / Math.Cos(angle / 2 * Math.PI / 180);
-            double t = Math.Pow(os, 2) - Math.Pow(600, 2);
-            t = Math.Sqrt(t);
-
-            label2.Text = t.ToString(System.Globalization.CultureInfo.CurrentUICulture);
-
-
-            double _X = noktalarint[2] - noktalarint[0];
-            double _Y = noktalarint[3] - noktalarint[1];
-            double distance = Math.Sqrt(_X * _X + _Y * _Y);
-
-            _X = noktalarint[2] - _X / distance * t + X_offset;
-            _Y = noktalarint[3] - _Y / distance * t + Y_offset;
-            label3.Text = _X.ToString(System.Globalization.CultureInfo.CurrentUICulture) + " --- " + _Y.ToString(System.Globalization.CultureInfo.CurrentUICulture) + "  " + offsetx.ToString(System.Globalization.CultureInfo.CurrentUICulture);
-            richTextBox2.Text = richTextBox2.Text + "\n" + _X.ToString(System.Globalization.CultureInfo.CurrentUICulture) + "\n" + _Y.ToString(System.Globalization.CultureInfo.CurrentUICulture);
-
-
-
-
-
-
-
-
-            /*
-           double ydegisken = t * Math.Sin(angle * Math.PI / 180);
-            double xdegisken = t * Math.Cos(angle * Math.PI / 180);
-
-
-            double nokta1 = noktalarint[2] + xdegisken + basx2;
-
-            double nokta2 = noktalarint[3] - ydegisken + basy2;
-
-            label3.Text = nokta1.ToString(System.Globalization.CultureInfo.CurrentUICulture) + " --- " + nokta2.ToString(System.Globalization.CultureInfo.CurrentUICulture);
-            richTextBox2.Text = richTextBox2.Text + "\n" + nokta1.ToString(System.Globalization.CultureInfo.CurrentUICulture) + "\n" + nokta2.ToString(System.Globalization.CultureInfo.CurrentUICulture);*/
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            String veri = richTextBox2.Text;
-            veri = veri.Replace('.', ',');
-            String[] noktalar = veri.Split('\n');
-            noktalarint2 = new float[noktalar.Length];
-            for (int i = 0; i < noktalar.Length; i++)
-            {
-                noktalarint2[i] = float.Parse(noktalar[i]);
-
-            }
-            noktalariduzelt2();
-            updateGraphic();
-        }
 
         private void Read_Path(object sender, EventArgs e)
         {
@@ -754,8 +663,17 @@ namespace yol
         {
 
         }
+        private void OutText_TextChanged(object sender, EventArgs e)
+        {
 
-        private void buttonn_Click(object sender, EventArgs e)
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }
@@ -763,7 +681,6 @@ namespace yol
         void calculatecurve(int Pindex, double rad, out List<double> O_points)
         {
             O_points = new List<double>();
-
             double Xa = points[Pindex - 2];
             double Xb = points[Pindex];
             double Xc = points[Pindex + 2];
@@ -793,7 +710,7 @@ namespace yol
             System.Diagnostics.Trace.WriteLine(Clenghts[Clenghts.Count - 1].ToString(System.Globalization.CultureInfo.CurrentUICulture));
 
 
-            button10.Text = angle.ToString(System.Globalization.CultureInfo.CurrentUICulture);
+            
 
 
             double os = rad / Math.Cos(angle / 2 * Math.PI / 180);
@@ -832,20 +749,12 @@ namespace yol
             CX = CX + points[Pindex];
             CY = CY + points[Pindex + 1];
 
-
             O_points.Add(_X);
             O_points.Add(_Y);
             O_points.Add(CX);
             O_points.Add(CY);
             O_points.Add(_X2);
             O_points.Add(_Y2);
-
-
-
-
-
-            OutText.AppendText((_X + X_offset).ToString(System.Globalization.CultureInfo.CurrentUICulture) + "\n" + (_Y + Y_offset).ToString(System.Globalization.CultureInfo.CurrentUICulture) + "\n" +
-                (CX + X_offset).ToString(System.Globalization.CultureInfo.CurrentUICulture) + "\n" + (CY + Y_offset).ToString(System.Globalization.CultureInfo.CurrentUICulture) + "\n" + (_X2 + X_offset).ToString(System.Globalization.CultureInfo.CurrentUICulture) + "\n" + (_Y2 + Y_offset).ToString(System.Globalization.CultureInfo.CurrentUICulture) + "\n");
             label3.Text = _X.ToString(System.Globalization.CultureInfo.CurrentUICulture) + " --- " + _Y.ToString(System.Globalization.CultureInfo.CurrentUICulture) + "  " + X_offset.ToString(System.Globalization.CultureInfo.CurrentUICulture);
             //richTextBox2.Text = richTextBox2.Text + "\n" + _X.ToString(System.Globalization.CultureInfo.CurrentUICulture) + "\n" + _Y.ToString(System.Globalization.CultureInfo.CurrentUICulture);
 
