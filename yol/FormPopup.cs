@@ -84,5 +84,10 @@ namespace yol
             offsety = offsety - 100;
             this.Invalidate();
         }
+
+        private void FormPopup_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

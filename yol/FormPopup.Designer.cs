@@ -59,7 +59,7 @@
             this.zoomInButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomInButton.Name = "zoomInButton";
             this.zoomInButton.Size = new System.Drawing.Size(23, 22);
-            this.zoomInButton.Text = "-";
+            this.zoomInButton.Text = "+";
             this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
             // 
             // zoomOutButton
@@ -69,7 +69,7 @@
             this.zoomOutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomOutButton.Name = "zoomOutButton";
             this.zoomOutButton.Size = new System.Drawing.Size(23, 22);
-            this.zoomOutButton.Text = "+";
+            this.zoomOutButton.Text = "-";
             this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
             // 
             // toolStripSeparator1
@@ -106,6 +106,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Name = "FormPopup";
             this.Text = "FormPopup";
+            this.Load += new System.EventHandler(this.FormPopup_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormPopup_Paint);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
