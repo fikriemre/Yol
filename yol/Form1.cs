@@ -391,6 +391,7 @@ namespace yol
 
         private void Read_Path(object sender, EventArgs e)
         {
+            //cok basit yorum satırı
             string _path = PathTextBox.Text;
             string readText;
             if (File.Exists(_path))
