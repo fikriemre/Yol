@@ -114,6 +114,7 @@ namespace yol
             bresetView = false;
             this.Invalidate();
             firstReset = false;
+            
         }
     }
 }
