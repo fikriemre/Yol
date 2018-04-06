@@ -12,6 +12,8 @@ namespace yol
 {
     public partial class FormPopup : Form
     {
+        
+        
         public List<Kesit> kesitler;
         PointF[] pp;
         PointF k_point;
@@ -26,6 +28,7 @@ namespace yol
         public FormPopup()
         {
             InitializeComponent();
+            
         }
 
         public void SetKesitler(List<Kesit> kesitler)
