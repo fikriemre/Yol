@@ -11,12 +11,16 @@ namespace yol
     public class KesitPoint
     {
         public PointF point;
+        public double pointx;
+        public double pointy;
         public string kesitName;
 
-        public KesitPoint(PointF _kp, string _kn)
+        public KesitPoint(double px, double py, string _kn)
         {
             kesitName = _kn;
-            point = _kp;
+            point = new PointF((float)px,(float)py);
+            pointx = px;
+            pointy = py;
         }
 
     }
@@ -29,9 +33,9 @@ namespace yol
             baslangic = _b;
         }
 
-        public void addToList(float x,float y, string name)
+        public void addToList(double x, double y, string name)
         {
-            kesitPoints.Add(new KesitPoint(new PointF(x,y),name));
+                kesitPoints.Add(new KesitPoint(x, y,name));
         }
     }
 }
