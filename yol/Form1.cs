@@ -715,7 +715,7 @@ namespace yol
 
 
 
-            double dot = (v2x * v1x) + (v2y * v1y);
+            double dot = ((Xb - Xa) * (Xc - Xb)) + ((Yb - Ya) * (Yc - Yb));
             _cw = true;
             if (dot <= 0) { _cw = false; }
 
