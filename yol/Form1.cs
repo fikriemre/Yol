@@ -708,12 +708,20 @@ namespace yol
             Clenghts.Add(Math.Abs(2 * Math.PI * rad * angle / 360));
             if (Clenghts[Clenghts.Count - 1] < 0) { _cw = false; }
 
-            C_Cws.Add(_cw);
+            
             System.Diagnostics.Trace.Write(_cw + "////");
             System.Diagnostics.Trace.WriteLine(Clenghts[Clenghts.Count - 1].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
 
 
-            
+
+
+            double dot = (v2x * v1x) + (v2y * v1y);
+            _cw = true;
+            if (dot <= 0) { _cw = false; }
+
+            C_Cws.Add(_cw);
+
+
 
 
             double os = rad / Math.Cos(angle / 2 * Math.PI / 180);
