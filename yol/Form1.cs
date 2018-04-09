@@ -694,32 +694,36 @@ namespace yol
             double v1y = Yc - Yb;
             double v2x = Xa - Xb;
             double v2y = Ya - Yb;
-            bool _cw = true;
+            double v3x = Xb - Xa;
+            double v3y = Yb - Ya;
+            bool _cw = false;
             double angle = Math.Atan2(v1x, v1y) - Math.Atan2(v2x, v2y);
+            double nextangle = Math.Atan2(v1x, v1y) - Math.Atan2(v3x, v3y);
+            if (nextangle < 0) _cw = true;
             angle = angle * (180 / Math.PI);
-            System.Diagnostics.Trace.Write(angle.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + "////");
+            //System.Diagnostics.Trace.Write(angle.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + "////");
             if (angle > 360)
             {
                 angle = 360 - angle;
             }
             if (angle >= 0) angle = 180 - angle;
-            else { angle = angle + 180; _cw = false; }
-            System.Diagnostics.Trace.Write(angle.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + "////");
+            else { angle = angle + 180; /*_cw = false; */}
             Clenghts.Add(Math.Abs(2 * Math.PI * rad * angle / 360));
-            if (Clenghts[Clenghts.Count - 1] < 0) { _cw = false; }
+            //if (Clenghts[Clenghts.Count - 1] < 0) { _cw = false; }
 
             
-            System.Diagnostics.Trace.Write(_cw + "////");
-            System.Diagnostics.Trace.WriteLine(Clenghts[Clenghts.Count - 1].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+            /*System.Diagnostics.Trace.Write(_cw + "////");
+            System.Diagnostics.Trace.WriteLine(Clenghts[Clenghts.Count - 1].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));*/
 
 
 
 
-            double dot = ((Xb - Xa) * (Xc - Xb)) + ((Yb - Ya) * (Yc - Yb));
+           /* double dot = ((Xb - Xa) * (Xc - Xb)) + ((Yb - Ya) * (Yc - Yb));
             _cw = true;
             if (dot <= 0) { _cw = false; }
-
+            */
             C_Cws.Add(_cw);
+            System.Diagnostics.Trace.WriteLine(nextangle.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (_cw ? "cw" : "ccw" ));
 
 
 
