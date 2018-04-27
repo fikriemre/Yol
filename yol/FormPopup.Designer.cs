@@ -35,6 +35,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.nextButton = new System.Windows.Forms.ToolStripButton();
             this.beforeButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.tsError = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,8 +46,10 @@
             this.zoomInButton,
             this.zoomOutButton,
             this.toolStripSeparator1,
+            this.beforeButton,
             this.nextButton,
-            this.beforeButton});
+            this.toolStripButton1,
+            this.tsError});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(775, 25);
@@ -97,6 +101,26 @@
             this.beforeButton.Text = "Prev";
             this.beforeButton.Click += new System.EventHandler(this.beforeButton_Click);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(31, 22);
+            this.toolStripButton1.Text = "Edit";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // tsError
+            // 
+            this.tsError.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsError.Image = ((System.Drawing.Image)(resources.GetObject("tsError.Image")));
+            this.tsError.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsError.Name = "tsError";
+            this.tsError.Size = new System.Drawing.Size(71, 22);
+            this.tsError.Text = "Go To Error";
+            this.tsError.Click += new System.EventHandler(this.tsError_Click);
+            // 
             // FormPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -123,5 +147,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton nextButton;
         private System.Windows.Forms.ToolStripButton beforeButton;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton tsError;
     }
 }

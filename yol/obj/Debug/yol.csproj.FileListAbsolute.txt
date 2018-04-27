@@ -40,3 +40,4 @@ D:\isler\Intersan\ceviri\Yol\yol\obj\Debug\en-US\yol.resources.dll
 D:\isler\Intersan\ceviri\Yol\yol\obj\Debug\en\yol.resources.dll
 D:\isler\Intersan\ceviri\Yol\yol\obj\Debug\yol.exe
 D:\isler\Intersan\ceviri\Yol\yol\obj\Debug\yol.pdb
+C:\Users\Senkro\source\repos\yol\yol\obj\Debug\yol.HataListe.resources

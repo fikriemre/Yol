@@ -73,6 +73,12 @@
     <Compile Include="FormPopup.Designer.cs">
       <DependentUpon>FormPopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="HataListe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HataListe.Designer.cs">
+      <DependentUpon>HataListe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.en-US.resx">
@@ -86,6 +92,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormPopup.resx">
       <DependentUpon>FormPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HataListe.resx">
+      <DependentUpon>HataListe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
