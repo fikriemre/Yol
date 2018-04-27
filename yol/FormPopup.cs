@@ -66,6 +66,10 @@ namespace yol
         {
             if (kesitler != null)
             {
+
+
+
+                /*
                 for (int s = 0; s < kesitler.Count; s++)
                 {
                     pp = new PointF[kesitler[s].kesitPoints.Count];
@@ -103,7 +107,7 @@ namespace yol
                     //System.Diagnostics.Trace.WriteLine("------");
                     if (s == lookatIdex) e.Graphics.DrawLines(penselected, pp);
                     else e.Graphics.DrawLines(pen, pp);
-                }
+                }*/
             }
             if (bresetView)
             {
