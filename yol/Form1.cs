@@ -52,17 +52,18 @@ namespace yol
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US", false);
 
 
-           
+
 
         }
 
         public void starter()
         {
-            if (read_file() == 1)
-            {
-                write_file();
-                return;
-            }
+            read_file();
+            //if (read_file() == 1)
+            //{
+            //  write_file();
+            // return;
+            // }
         }
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -98,7 +99,6 @@ namespace yol
             {
                 for (int i = 0; i < points.Count - 2; i += 2)
                 {
-                    //System.Diagnostics.Trace.WriteLine((((float)points[i] * scales[defscale]) + offsetx).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
                     e.Graphics.DrawLine(pen3, ((float)points[i] * scales[defscale]) + offsetx, ((float)points[i + 1] * scales[defscale]) + offsety,
                         ((float)points[i + 2] * scales[defscale]) + offsetx, ((float)points[i + 3] * scales[defscale]) + offsety);
                 }
@@ -113,73 +113,6 @@ namespace yol
 
                 }
             }
-
-
-          
-
-
-
-
-            /*
-            tempdata = tempdata.Replace('.', ',');
-            string[] sliceData = tempdata.Split('#');
-
-            for (int s = 0; s < sliceData.Length; s++)
-            {
-                string[] points = sliceData[s].Split('*');
-                int k = 0;
-                pp = new PointF[points.Length / 4];
-                for (int m = 1; m <= points.Length - 4; m = m + 4)
-                {
-                    pp[k].X = (float.Parse((points[m + 1])));
-                    pp[k].Y = (float.Parse(points[m + 2]));
-                    Font font = new Font(FontFamily.GenericSansSerif, 1 * scales[defscale], FontStyle.Regular);
-
-
-                    pp[k].X = ((pp[k].X + 500) * scales[defscale]) + offsetx;
-                    pp[k].Y = ((pp[k].Y + (s * 12)) * scales[defscale]) + offsety;
-
-                    e.Graphics.DrawString(points[m + 3], font, new SolidBrush(Color.Black), pp[k]);
-                    //System.Diagnostics.Trace.WriteLine("X: " + points[m+1].ToString() + "Y: " + points[m + 2].ToString());
-                    e.Graphics.DrawEllipse(pen2, new Rectangle(new Point((int)pp[k].X, (int)pp[k].Y), new Size((int)scales[defscale], (int)scales[defscale])));
-                    if (k == 0 && s == 1) { k_point = pp[k]; }
-                    k++;
-
-                }
-                e.Graphics.DrawLines(pen, pp);
-
-
-            }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         }
         void updateGraphic()
@@ -323,6 +256,7 @@ namespace yol
             bool getpoints = false;
             bool _KMO = false;
             bool _dusey = false;
+            int eklenti = 0;
 
             List<string> pointsTextArray = new List<string>();
             points = new List<double>();
@@ -330,10 +264,10 @@ namespace yol
 
             for (int i = 0; i < readData.Length; i++)
             {
-                if (readData[i] == "$KM0\r") { _KMO = true; continue; }
-                if (readData[i] == "$YATAY\r") { getpoints = true; continue; }
-                if (readData[i] == "$DUSEY\r") { _dusey = true; continue; }
-                if (readData[i] == "$SON\r") { getpoints = false; _KMO = false; _dusey = false; continue; }
+                if (readData[i].StartsWith("$KM0")) { _KMO = true; continue; }
+                if (readData[i].StartsWith("$YATAY")) { getpoints = true; continue; }
+                if (readData[i].StartsWith("$DUSEY")) { _dusey = true; continue; }
+                if (readData[i].StartsWith("$SON")) { getpoints = false; _KMO = false; _dusey = false; continue; }
                 if (getpoints)
                 {
                     pointsTextArray.Add(readData[i]);
@@ -346,10 +280,11 @@ namespace yol
                 }
                 if (_dusey)
                 {
+                    eklenti = 0;
                     readData[i] = readData[i].Replace('.', ',');
                     readData[i] = System.Text.RegularExpressions.Regex.Replace(readData[i], @"\s+", "*");
                     string[] _Dbuffer = readData[i].Split('*');
-                    for (int t = 0; t < 3; t++)
+                    for (int t = 0 + eklenti; t < 3 + eklenti; t++)
                     {
                         DuseyPoints.Add(double.Parse(_Dbuffer[t]));
                     }
@@ -467,6 +402,7 @@ namespace yol
             bool getpoints = false;
             bool _KMO = false;
             bool _dusey = false;
+            int eklenti = 0;
 
             List<string> pointsTextArray = new List<string>();
             points = new List<double>();
@@ -474,10 +410,10 @@ namespace yol
 
             for (int i = 0; i < readData.Length; i++)
             {
-                if (readData[i] == "$KM0\r") { _KMO = true; continue; }
-                if (readData[i] == "$YATAY\r") { getpoints = true; continue; }
-                if (readData[i] == "$DUSEY\r") { _dusey = true; continue; }
-                if (readData[i] == "$SON\r") { getpoints = false; _KMO = false; _dusey = false; continue; }
+                if (readData[i].StartsWith("$KM0")) { _KMO = true; continue; }
+                if (readData[i].StartsWith("$YATAY")) { getpoints = true; continue; }
+                if (readData[i].StartsWith("$DUSEY")) { _dusey = true; continue; }
+                if (readData[i].StartsWith("$SON")) { getpoints = false; _KMO = false; _dusey = false; continue; }
                 if (getpoints)
                 {
                     pointsTextArray.Add(readData[i]);
@@ -490,10 +426,12 @@ namespace yol
                 }
                 if (_dusey)
                 {
+                    eklenti = 0;
                     readData[i] = readData[i].Replace('.', ',');
                     readData[i] = System.Text.RegularExpressions.Regex.Replace(readData[i], @"\s+", "*");
                     string[] _Dbuffer = readData[i].Split('*');
-                    for (int t = 0; t < 3; t++)
+                    if (_Dbuffer[0].Equals("")) eklenti = 1;
+                    for (int t = 0 + eklenti; t < 3 + eklenti; t++)
                     {
                         DuseyPoints.Add(double.Parse(_Dbuffer[t]));
                     }
@@ -581,6 +519,7 @@ namespace yol
             EKSform.Text = "EKS";
             EKSform.SetKesitler(kesitler);
             EKSform.Show(this);
+
 
 
             updateGraphic();
@@ -807,214 +746,216 @@ namespace yol
             maindocument.Save("landxml.xml");
 
 
-            this.Close();
+            //this.Close();
             return;
 
         }
 
         private void Write_Xml(object sender, EventArgs e)
         {
-            double anlikuzunluk = KMO;
-            XDocument maindocument = new XDocument();
-            XElement landxml = new XElement("LandXml");
+            write_file();
+        }
+        //    double anlikuzunluk = KMO;
+        //    XDocument maindocument = new XDocument();
+        //    XElement landxml = new XElement("LandXml");
 
-            XElement units = new XElement("Units");
-            XElement metric = new XElement("Metric");
-            metric.SetAttributeValue("areaUnit", "squareMeter");
-            metric.SetAttributeValue("linearUnit", "meter");
-            metric.SetAttributeValue("volumeUnit", "cubicMeter");
-            metric.SetAttributeValue("temperatureUnit", "celsius");
-            metric.SetAttributeValue("pressureUnit", "milliBars");
-            metric.SetAttributeValue("diameterUnit", "millimeter");
-            metric.SetAttributeValue("angularUnit", "decimal degrees");
-            metric.SetAttributeValue("directionUnit", "decimal degrees");
-            units.Add(metric);
-            landxml.Add(units);
-
-
-
-            XElement application = new XElement("Application");
-            application.SetAttributeValue("name", "HALFSTAR");
-            application.SetAttributeValue("desc", "InterSan");
-            application.SetAttributeValue("version", "1.0.99");
-            application.SetAttributeValue("manufacturerURL", "www.intersanyazilim.com");
-            landxml.Add(application);
+        //    XElement units = new XElement("Units");
+        //    XElement metric = new XElement("Metric");
+        //    metric.SetAttributeValue("areaUnit", "squareMeter");
+        //    metric.SetAttributeValue("linearUnit", "meter");
+        //    metric.SetAttributeValue("volumeUnit", "cubicMeter");
+        //    metric.SetAttributeValue("temperatureUnit", "celsius");
+        //    metric.SetAttributeValue("pressureUnit", "milliBars");
+        //    metric.SetAttributeValue("diameterUnit", "millimeter");
+        //    metric.SetAttributeValue("angularUnit", "decimal degrees");
+        //    metric.SetAttributeValue("directionUnit", "decimal degrees");
+        //    units.Add(metric);
+        //    landxml.Add(units);
 
 
-            XElement project = new XElement("Project");
-            project.SetAttributeValue("name", "Project.map");
-            landxml.Add(project);
 
-            XElement alignments = new XElement("Alignments");
+        //    XElement application = new XElement("Application");
+        //    application.SetAttributeValue("name", "HALFSTAR");
+        //    application.SetAttributeValue("desc", "InterSan");
+        //    application.SetAttributeValue("version", "1.0.99");
+        //    application.SetAttributeValue("manufacturerURL", "www.intersanyazilim.com");
+        //    landxml.Add(application);
 
-            XElement alignment = new XElement("Alignment");
+
+        //    XElement project = new XElement("Project");
+        //    project.SetAttributeValue("name", "Project.map");
+        //    landxml.Add(project);
+
+        //    XElement alignments = new XElement("Alignments");
+
+        //    XElement alignment = new XElement("Alignment");
 
 
-            XElement coordgeom = new XElement("CoordGeom");
-            XElement line = new XElement("Line");
-            line.Add(new XElement("Start", X_offset.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + Y_offset.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
-            line.Add(new XElement("End", (PCurves[0] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[1] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
-            line.SetAttributeValue("staStart", anlikuzunluk.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-            line.SetAttributeValue("length", uzaklikHesapla(PCurves[0] + X_offset, (PCurves[1] + Y_offset), X_offset, Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-            anlikuzunluk = anlikuzunluk + uzaklikHesapla(PCurves[0] + X_offset, (PCurves[1] + Y_offset), X_offset, Y_offset);
-            coordgeom.Add(line);
-            XElement curve = new XElement("Curve");
-            int lcounter = 0;
-            for (int i = 0; i < PCurves.Count - 6; i += 6)
-            {
-                curve = new XElement("Curve");
-                curve.Add(new XElement("Start", (PCurves[i] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[i + 1] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
-                curve.Add(new XElement("End", (PCurves[i + 4] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[i + 5] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
-                curve.Add(new XElement("Center", (PCurves[i + 2] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[i + 3] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
-                curve.SetAttributeValue("staStart", anlikuzunluk.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-                curve.SetAttributeValue("crvType", "arc");
-                curve.SetAttributeValue("rot", C_Cws[lcounter] ? "cw" : "ccw");
-                curve.SetAttributeValue("radius", PRadius[lcounter+1].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-                curve.SetAttributeValue("length", Clenghts[lcounter].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-                anlikuzunluk += Clenghts[lcounter];
-                lcounter++;
-                if (!(PCurves[i + 2] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture).Equals("NaN"))
-                {
-                    coordgeom.Add(curve);
-                }
-                line = new XElement("Line");
-                line.Add(new XElement("Start", (PCurves[i + 4] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[i + 5] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
-                line.Add(new XElement("End", (PCurves[i + 6] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[i + 7] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
-                line.SetAttributeValue("staStart", anlikuzunluk.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-                line.SetAttributeValue("length", uzaklikHesapla(PCurves[i + 6], (PCurves[i + 7]), PCurves[i + 4], PCurves[i + 5]).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-                anlikuzunluk += uzaklikHesapla(PCurves[i + 6], (PCurves[i + 7]), PCurves[i + 4], PCurves[i + 5]);
-                coordgeom.Add(line);
+        //    XElement coordgeom = new XElement("CoordGeom");
+        //    XElement line = new XElement("Line");
+        //    line.Add(new XElement("Start", X_offset.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + Y_offset.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
+        //    line.Add(new XElement("End", (PCurves[0] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[1] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
+        //    line.SetAttributeValue("staStart", anlikuzunluk.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //    line.SetAttributeValue("length", uzaklikHesapla(PCurves[0] + X_offset, (PCurves[1] + Y_offset), X_offset, Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //    anlikuzunluk = anlikuzunluk + uzaklikHesapla(PCurves[0] + X_offset, (PCurves[1] + Y_offset), X_offset, Y_offset);
+        //    coordgeom.Add(line);
+        //    XElement curve = new XElement("Curve");
+        //    int lcounter = 0;
+        //    for (int i = 0; i < PCurves.Count - 6; i += 6)
+        //    {
+        //        curve = new XElement("Curve");
+        //        curve.Add(new XElement("Start", (PCurves[i] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[i + 1] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
+        //        curve.Add(new XElement("End", (PCurves[i + 4] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[i + 5] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
+        //        curve.Add(new XElement("Center", (PCurves[i + 2] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[i + 3] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
+        //        curve.SetAttributeValue("staStart", anlikuzunluk.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //        curve.SetAttributeValue("crvType", "arc");
+        //        curve.SetAttributeValue("rot", C_Cws[lcounter] ? "cw" : "ccw");
+        //        curve.SetAttributeValue("radius", PRadius[lcounter+1].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //        curve.SetAttributeValue("length", Clenghts[lcounter].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //        anlikuzunluk += Clenghts[lcounter];
+        //        lcounter++;
+        //        if (!(PCurves[i + 2] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture).Equals("NaN"))
+        //        {
+        //            coordgeom.Add(curve);
+        //        }
+        //        line = new XElement("Line");
+        //        line.Add(new XElement("Start", (PCurves[i + 4] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[i + 5] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
+        //        line.Add(new XElement("End", (PCurves[i + 6] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[i + 7] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
+        //        line.SetAttributeValue("staStart", anlikuzunluk.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //        line.SetAttributeValue("length", uzaklikHesapla(PCurves[i + 6], (PCurves[i + 7]), PCurves[i + 4], PCurves[i + 5]).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //        anlikuzunluk += uzaklikHesapla(PCurves[i + 6], (PCurves[i + 7]), PCurves[i + 4], PCurves[i + 5]);
+        //        coordgeom.Add(line);
 
                 
-            }
-            int j = PCurves.Count - 6;
-            curve = new XElement("Curve");
-            curve.Add(new XElement("Start", (PCurves[j] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[j + 1] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
-            curve.Add(new XElement("End", (PCurves[j + 4] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[j + 5] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
-            curve.Add(new XElement("Center", (PCurves[j + 2] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[j + 3] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
-            curve.SetAttributeValue("staStart", anlikuzunluk.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)); anlikuzunluk += Clenghts[lcounter];
-            curve.SetAttributeValue("crvType", "arc");
-            curve.SetAttributeValue("rot", C_Cws[lcounter] ? "cw" : "ccw");
-            curve.SetAttributeValue("radius", PRadius[lcounter + 1].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-            curve.SetAttributeValue("length", Clenghts[lcounter].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-            if (!(PCurves[j + 2] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture).Equals("NaN"))
-            {
-                coordgeom.Add(curve);
-            }
-            line = new XElement("Line");
-            line.Add(new XElement("Start", (PCurves[j + 4] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[j + 5] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
-            line.Add(new XElement("End", ((points[points.Count - 2] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (points[points.Count - 1] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture))));
-            line.SetAttributeValue("staStart", anlikuzunluk.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-            line.SetAttributeValue("length", uzaklikHesapla(points[points.Count - 2], points[points.Count - 1], PCurves[j + 4], (PCurves[j + 5])).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //    }
+        //    int j = PCurves.Count - 6;
+        //    curve = new XElement("Curve");
+        //    curve.Add(new XElement("Start", (PCurves[j] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[j + 1] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
+        //    curve.Add(new XElement("End", (PCurves[j + 4] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[j + 5] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
+        //    curve.Add(new XElement("Center", (PCurves[j + 2] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[j + 3] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
+        //    curve.SetAttributeValue("staStart", anlikuzunluk.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)); anlikuzunluk += Clenghts[lcounter];
+        //    curve.SetAttributeValue("crvType", "arc");
+        //    curve.SetAttributeValue("rot", C_Cws[lcounter] ? "cw" : "ccw");
+        //    curve.SetAttributeValue("radius", PRadius[lcounter + 1].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //    curve.SetAttributeValue("length", Clenghts[lcounter].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //    if (!(PCurves[j + 2] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture).Equals("NaN"))
+        //    {
+        //        coordgeom.Add(curve);
+        //    }
+        //    line = new XElement("Line");
+        //    line.Add(new XElement("Start", (PCurves[j + 4] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (PCurves[j + 5] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture)));
+        //    line.Add(new XElement("End", ((points[points.Count - 2] + X_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + (points[points.Count - 1] + Y_offset).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture))));
+        //    line.SetAttributeValue("staStart", anlikuzunluk.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //    line.SetAttributeValue("length", uzaklikHesapla(points[points.Count - 2], points[points.Count - 1], PCurves[j + 4], (PCurves[j + 5])).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
 
-            anlikuzunluk += uzaklikHesapla(points[points.Count - 2], points[points.Count - 1], PCurves[j + 4], (PCurves[j + 5]));
-            coordgeom.Add(line);
+        //    anlikuzunluk += uzaklikHesapla(points[points.Count - 2], points[points.Count - 1], PCurves[j + 4], (PCurves[j + 5]));
+        //    coordgeom.Add(line);
 
-            alignment.SetAttributeValue("name", globalname);
-            alignment.SetAttributeValue("length", (anlikuzunluk - KMO).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-            alignment.SetAttributeValue("staStart", KMO.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-            alignment.Add(coordgeom);
+        //    alignment.SetAttributeValue("name", globalname);
+        //    alignment.SetAttributeValue("length", (anlikuzunluk - KMO).ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //    alignment.SetAttributeValue("staStart", KMO.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //    alignment.Add(coordgeom);
 
-            XElement profile = new XElement("Profile");
-            XElement profalign = new XElement("ProfAlign");
-            profalign.SetAttributeValue("name", globalname);
-            XElement pvi;
-            XElement paracurve;
-            for (int u = 0; u <= DuseyPoints.Count - 3; u += 3)
-            {
-                if (DuseyPoints[u + 2] == 0)
-                {
-                    pvi = new XElement("PVI", DuseyPoints[u].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + DuseyPoints[u + 1].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-                    profalign.Add(pvi);
-                }
-                else
-                {
-                    paracurve = new XElement("ParaCurve", DuseyPoints[u].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + DuseyPoints[u + 1].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-                    paracurve.SetAttributeValue("length", DuseyPoints[u + 2].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
-                    profalign.Add(paracurve);
-                }
+        //    XElement profile = new XElement("Profile");
+        //    XElement profalign = new XElement("ProfAlign");
+        //    profalign.SetAttributeValue("name", globalname);
+        //    XElement pvi;
+        //    XElement paracurve;
+        //    for (int u = 0; u <= DuseyPoints.Count - 3; u += 3)
+        //    {
+        //        if (DuseyPoints[u + 2] == 0)
+        //        {
+        //            pvi = new XElement("PVI", DuseyPoints[u].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + DuseyPoints[u + 1].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //            profalign.Add(pvi);
+        //        }
+        //        else
+        //        {
+        //            paracurve = new XElement("ParaCurve", DuseyPoints[u].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " + DuseyPoints[u + 1].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //            paracurve.SetAttributeValue("length", DuseyPoints[u + 2].ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture));
+        //            profalign.Add(paracurve);
+        //        }
 
-            }
+        //    }
 
-            profile.Add(profalign);
-            alignment.Add(profile);
-
-
-            XElement crosssects = new XElement("CrossSects");
-            XElement crosssect;
-            XElement crosssectsurf;
-            XElement pntlist2d;
-            XElement featureN;
-            XElement featureC;
-            XElement featureI;
-            string kesitlerinnoktalari = "";
-            string kesitlerinisimleri = "";
-            string kesitlerinbaglantilari = "";
-            for (int k = 0; k < kesitler.Count; k++)
-            {
-                crosssect = new XElement("CrossSect");
-                crosssect.SetAttributeValue("sta", kesitler[k].baslangic.ToString("0.000", System.Globalization.CultureInfo.CurrentUICulture));
-
-                crosssectsurf = new XElement("CrossSectSurf");
-                crosssectsurf.SetAttributeValue("name", globalnameKSE);
-                kesitlerinnoktalari = "";
-                kesitlerinisimleri = "";
-                kesitlerinbaglantilari = "";
-                for (int p = 0; p < kesitler[k].kesitPoints.Count; p++)
-                {
-
-                    kesitlerinnoktalari = kesitlerinnoktalari + kesitler[k].kesitPoints[p].pointx.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " +
-                        kesitler[k].kesitPoints[p].pointy.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " ";
-
-                    kesitlerinisimleri = kesitlerinisimleri + kesitler[k].kesitPoints[p].kesitName + ",";
-
-                    if (k != 0)
-                    {
-
-                        for (int pp = 0; pp < kesitler[k - 1].kesitPoints.Count; pp++)
-                        {
-                            if (kesitler[k].kesitPoints[p].kesitName.Equals(kesitler[k - 1].kesitPoints[pp].kesitName))
-                            {
-                                kesitlerinbaglantilari = kesitlerinbaglantilari + kesitler[k].kesitPoints[p].kesitName + "," + kesitler[k - 1].kesitPoints[pp].kesitName + ",";
-                                break;
-                            }
-                        }
-
-                    }
-                }
-                pntlist2d = new XElement("PntList2D", kesitlerinnoktalari.Remove(kesitlerinnoktalari.Length - 1, 1));
-                featureN = new XElement("Feature", kesitlerinisimleri.Remove(kesitlerinisimleri.Length - 1, 1));
-                featureN.SetAttributeValue("code", "RR Vertex Name");
+        //    profile.Add(profalign);
+        //    alignment.Add(profile);
 
 
-                crosssectsurf.Add(pntlist2d);
-                crosssectsurf.Add(featureN);
+        //    XElement crosssects = new XElement("CrossSects");
+        //    XElement crosssect;
+        //    XElement crosssectsurf;
+        //    XElement pntlist2d;
+        //    XElement featureN;
+        //    XElement featureC;
+        //    XElement featureI;
+        //    string kesitlerinnoktalari = "";
+        //    string kesitlerinisimleri = "";
+        //    string kesitlerinbaglantilari = "";
+        //    for (int k = 0; k < kesitler.Count; k++)
+        //    {
+        //        crosssect = new XElement("CrossSect");
+        //        crosssect.SetAttributeValue("sta", kesitler[k].baslangic.ToString("0.000", System.Globalization.CultureInfo.CurrentUICulture));
 
-                if (k != 0)
-                {
+        //        crosssectsurf = new XElement("CrossSectSurf");
+        //        crosssectsurf.SetAttributeValue("name", globalnameKSE);
+        //        kesitlerinnoktalari = "";
+        //        kesitlerinisimleri = "";
+        //        kesitlerinbaglantilari = "";
+        //        for (int p = 0; p < kesitler[k].kesitPoints.Count; p++)
+        //        {
 
-                    featureC = new XElement("Feature");
-                    featureC.SetAttributeValue("code", "RR Vertex Connections");
+        //            kesitlerinnoktalari = kesitlerinnoktalari + kesitler[k].kesitPoints[p].pointx.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " " +
+        //                kesitler[k].kesitPoints[p].pointy.ToString("0.000000", System.Globalization.CultureInfo.CurrentUICulture) + " ";
 
-                    featureI = new XElement("Feature", kesitlerinbaglantilari.Remove(kesitlerinbaglantilari.Length - 1, 1));
-                    featureI.SetAttributeValue("code", "RR Vertex Interpolate");
+        //            kesitlerinisimleri = kesitlerinisimleri + kesitler[k].kesitPoints[p].kesitName + ",";
 
-                    crosssectsurf.Add(featureC);
-                    featureC.Add(featureI);
-                }
-                crosssect.Add(crosssectsurf);
-                crosssects.Add(crosssect);
-            }
+        //            if (k != 0)
+        //            {
 
-            alignment.Add(crosssects);
-            alignments.Add(alignment);
-            landxml.Add(alignments);
-            maindocument.Add(landxml);
-            maindocument.Save("landxml.xml");
+        //                for (int pp = 0; pp < kesitler[k - 1].kesitPoints.Count; pp++)
+        //                {
+        //                    if (kesitler[k].kesitPoints[p].kesitName.Equals(kesitler[k - 1].kesitPoints[pp].kesitName))
+        //                    {
+        //                        kesitlerinbaglantilari = kesitlerinbaglantilari + kesitler[k].kesitPoints[p].kesitName + "," + kesitler[k - 1].kesitPoints[pp].kesitName + ",";
+        //                        break;
+        //                    }
+        //                }
+
+        //            }
+        //        }
+        //        pntlist2d = new XElement("PntList2D", kesitlerinnoktalari.Remove(kesitlerinnoktalari.Length - 1, 1));
+        //        featureN = new XElement("Feature", kesitlerinisimleri.Remove(kesitlerinisimleri.Length - 1, 1));
+        //        featureN.SetAttributeValue("code", "RR Vertex Name");
+
+
+        //        crosssectsurf.Add(pntlist2d);
+        //        crosssectsurf.Add(featureN);
+
+        //        if (k != 0)
+        //        {
+
+        //            featureC = new XElement("Feature");
+        //            featureC.SetAttributeValue("code", "RR Vertex Connections");
+
+        //            featureI = new XElement("Feature", kesitlerinbaglantilari.Remove(kesitlerinbaglantilari.Length - 1, 1));
+        //            featureI.SetAttributeValue("code", "RR Vertex Interpolate");
+
+        //            crosssectsurf.Add(featureC);
+        //            featureC.Add(featureI);
+        //        }
+        //        crosssect.Add(crosssectsurf);
+        //        crosssects.Add(crosssect);
+        //    }
+
+        //    alignment.Add(crosssects);
+        //    alignments.Add(alignment);
+        //    landxml.Add(alignments);
+        //    maindocument.Add(landxml);
+        //    maindocument.Save("landxml.xml");
 
 
 
-        }
+        //}
 
         double uzaklikHesapla(double x1, double y1, double x2, double y2)
         {
