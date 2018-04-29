@@ -60,6 +60,8 @@ namespace yol
         private void hatakontrol()
         {
             errors = new List<int>();
+            errortype = new List<int>();
+
             for (int s = 0; s < kesitler.Count; s++)
             {
                 for (int k = 0; k < kesitler[s].kesitPoints.Count; k++)
@@ -192,20 +194,7 @@ namespace yol
             }*/
         }
 
-        private void tsError_Click(object sender, EventArgs e)
-        {
-            if (errors.Count == 0){return;}
 
-            lookatIdex = errors[errorsIndex];
-            //if (lookatIdex > kesitler.Count - 1) { lookatIdex = kesitler.Count - 1; }
-
-
-
-
-            errorsIndex++;
-            if (errorsIndex > errors.Count() - 1) { errorsIndex = 0; }
-
-        }
         private void kesitciz(int index, PaintEventArgs e)
         {
             int s = index;
