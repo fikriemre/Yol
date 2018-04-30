@@ -45,6 +45,7 @@
             this.PathTextBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.KSETextBox = new System.Windows.Forms.TextBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -221,12 +222,22 @@
             this.KSETextBox.Text = "kse.KSE";
             this.KSETextBox.TextChanged += new System.EventHandler(this.PathTextBox_TextChanged);
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBox1.Location = new System.Drawing.Point(823, 389);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(183, 166);
+            this.richTextBox1.TabIndex = 7;
+            this.richTextBox1.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ClientSize = new System.Drawing.Size(1018, 581);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.KSETextBox);
             this.Controls.Add(this.PathTextBox);
             this.Controls.Add(this.trackBar1);
@@ -276,6 +287,7 @@
         private System.Windows.Forms.TextBox PathTextBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox KSETextBox;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

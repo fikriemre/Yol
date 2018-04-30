@@ -27,8 +27,7 @@ namespace yol
     public class Kesit
     {
         public List<KesitPoint> kesitPoints = new List<KesitPoint>();
-        public float baslangic { get; set; }
-        public string UserName { get; set; }
+        public float baslangic;
         public Kesit(float _b)
         {
             baslangic = _b;

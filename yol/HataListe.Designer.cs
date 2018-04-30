@@ -28,14 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.errorsList = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
+            // 
+            // errorsList
+            // 
+            this.errorsList.FormattingEnabled = true;
+            this.errorsList.Location = new System.Drawing.Point(3, 3);
+            this.errorsList.Name = "errorsList";
+            this.errorsList.Size = new System.Drawing.Size(120, 433);
+            this.errorsList.TabIndex = 0;
             // 
             // HataListe
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(751, 554);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ClientSize = new System.Drawing.Size(563, 450);
+            this.Controls.Add(this.errorsList);
             this.Name = "HataListe";
             this.Text = "HataListe";
             this.ResumeLayout(false);
@@ -43,5 +52,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.ListBox errorsList;
     }
 }
