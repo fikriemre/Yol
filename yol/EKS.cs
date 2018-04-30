@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace yol
 {
+    [Serializable()]
     public class KesitPoint
     {
         public PointF point;
@@ -24,6 +25,7 @@ namespace yol
         }
 
     }
+    [Serializable()]
     public class Kesit
     {
         public List<KesitPoint> kesitPoints = new List<KesitPoint>();
@@ -32,7 +34,14 @@ namespace yol
         {
             baslangic = _b;
         }
-
+        public void setList(List<KesitPoint> _kesitPoints)
+        {
+            kesitPoints = _kesitPoints;
+        }
+        public Kesit getKesit()
+        {
+            return this;
+        }
         public void addToList(double x, double y, string name)
         {
                 kesitPoints.Add(new KesitPoint(x, y,name));

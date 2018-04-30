@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace yol
 {
@@ -20,6 +21,7 @@ namespace yol
         List<double> Clenghts = new List<double>();
         List<bool> C_Cws = new List<bool>();
         List<double> DuseyPoints = new List<double>();
+        List<Kesit> eklenecekler = new List<Kesit>();
         float basx2, basy2;
         private List<Kesit> kesitler;
         FormPopup EKSform;
@@ -485,20 +487,74 @@ namespace yol
             EKSform.Text = "EKS";
             EKSform.SetKesitler(kesitler);
             EKSform.Show(this);
+            bool onceyok = true;
+            bool sonrayok = true;
+            for (int k = 1; k < kesitler.Count - 1; k++)
+            {
+                for (int p = 0; p < kesitler[k].kesitPoints.Count; p++)
+                {
+                    onceyok = true;
+                    sonrayok = true;
+                    for (int pp = 0; pp < kesitler[k - 1].kesitPoints.Count; pp++)
+                    {
+                        if (kesitler[k].kesitPoints[p].kesitName.Equals(kesitler[k - 1].kesitPoints[pp].kesitName))
+                        {
+                            onceyok = false;
+                            //richTextBox1.AppendText((kesitler[k].baslangic.ToString() + " -- " + kesitler[k].kesitPoints[p].kesitName + "\n"));
+                           // break;
+                        }
+                    }
+                    if (onceyok == true)
+                    {
+                        for (int ppp = 0; ppp < kesitler[k + 1].kesitPoints.Count; ppp++)
+                        {
+                            if (kesitler[k].kesitPoints[p].kesitName.Equals(kesitler[k + 1].kesitPoints[ppp].kesitName))
+                            {
+                                sonrayok = false;
+                                //richTextBox1.AppendText((kesitler[k].baslangic.ToString() + " -- " + kesitler[k].kesitPoints[p].kesitName + "\n"));
+                                // break;
+                            }
+                        }
+                        if(sonrayok == true)
+                        {
+                            Kesit tempkesit = DeepClone(kesitler[k]);
+                            //tempkesit.setList(kesitler[k].kesitPoints);
+                            if (!eklenecekler.Contains(tempkesit))
+                            {
+                                eklenecekler.Add(tempkesit);
+                                richTextBox1.AppendText((kesitler[k].baslangic.ToString() + " -- " + kesitler[k].kesitPoints[p].kesitName + "\n"));
+                            }
+                        }
+                      
+                    }
+                }
+            }
 
-
-
+            for(int e = 0; e < eklenecekler.Count; e++)
+            {
+                eklenecekler[e].baslangic += 0.01f;
+                kesitler.Add(eklenecekler[e]);
+                  
+            }
+            kesitler = kesitler.OrderBy(o => o.baslangic).ToList();
             updateGraphic();
 
 
 
             return 1;
 
-
-
-
         }
+        public static T DeepClone<T>(T obj)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, obj);
+                ms.Position = 0;
 
+                return (T)formatter.Deserialize(ms);
+            }
+        }
         private void PathTextBox_TextChanged(object sender, EventArgs e)
         {
 
@@ -649,8 +705,12 @@ namespace yol
             string kesitlerinnoktalari = "";
             string kesitlerinisimleri = "";
             string kesitlerinbaglantilari = "";
-            for (int k = 0; k < kesitler.Count; k++)
+            for (int k = 0; k < kesitler.Count - 1; k++)
             {
+                if(k != 0)
+                {
+                    if (kesitler[k - 1].baslangic == kesitler[k].baslangic) continue;
+                }
                 crosssect = new XElement("CrossSect");
                 crosssect.SetAttributeValue("sta", kesitler[k].baslangic.ToString("0.000", System.Globalization.CultureInfo.CurrentUICulture));
 
@@ -659,7 +719,6 @@ namespace yol
                 kesitlerinnoktalari = "";
                 kesitlerinisimleri = "";
                 kesitlerinbaglantilari = "";
-                List<string> bironceolanlar = new List<string>();
                 for (int p = 0; p < kesitler[k].kesitPoints.Count; p++)
                 {
 
@@ -675,45 +734,14 @@ namespace yol
                             if (kesitler[k].kesitPoints[p].kesitName.Equals(kesitler[k - 1].kesitPoints[pp].kesitName))
                             {
                                 kesitlerinbaglantilari = kesitlerinbaglantilari + kesitler[k].kesitPoints[p].kesitName + "," + kesitler[k - 1].kesitPoints[pp].kesitName + ",";
-                                
-                                //break;
+                                break;
                             }
-                            else
-                            {
-                                //bironceolanlar.Add(kesitler[k].kesitPoints[p].kesitName);
-                                if(k == 1)
-                                richTextBox1.AppendText((kesitler[k].baslangic.ToString() + " -- " + kesitler[k].kesitPoints[p].kesitName + "\n"));
 
-                            }
                         }
-                        
-                       /* if (k != kesitler.Count - 1)
-                        {
-                            for (int ppp = 0; ppp < kesitler[k + 1].kesitPoints.Count; ppp++)
-                            {
-                                if (kesitler[k].kesitPoints[p].kesitName.Equals(kesitler[k + 1].kesitPoints[ppp].kesitName))
-                                {
-                                    bulundu = true;
-                                    break;
-                                }
-                            }
-
-                            if (bulundu == false)
-                            {
-                                richTextBox1.AppendText((kesitler[k].baslangic.ToString() + " -- " + kesitler[k].kesitPoints[p].kesitName + "\n"));
-                            }
-                        }*/
 
                     }
-
-
-                    bironceolanlar.Clear();
                 }
-
                 
-                          
-
-
                 pntlist2d = new XElement("PntList2D", kesitlerinnoktalari.Remove(kesitlerinnoktalari.Length - 1, 1));
                 featureN = new XElement("Feature", kesitlerinisimleri.Remove(kesitlerinisimleri.Length - 1, 1));
                 featureN.SetAttributeValue("code", "RR Vertex Name");

@@ -41,9 +41,7 @@
             this.KesitGoster2 = new System.Windows.Forms.Panel();
             this.Hatalarlistbox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.kesitisim1 = new System.Windows.Forms.Label();
-            this.Kesitisim2 = new System.Windows.Forms.Label();
-            this.Kesitisim0 = new System.Windows.Forms.Label();
+            this.SelectionBackGround = new System.Windows.Forms.FlowLayoutPanel();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,9 +57,9 @@
             this.beforeButton,
             this.nextButton,
             this.toolStripButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(315, 2);
+            this.toolStrip1.Location = new System.Drawing.Point(545, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(179, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(155, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -71,7 +69,7 @@
             this.zoomInButton.Image = ((System.Drawing.Image)(resources.GetObject("zoomInButton.Image")));
             this.zoomInButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomInButton.Name = "zoomInButton";
-            this.zoomInButton.Size = new System.Drawing.Size(23, 24);
+            this.zoomInButton.Size = new System.Drawing.Size(23, 22);
             this.zoomInButton.Text = "+";
             this.zoomInButton.Click += new System.EventHandler(this.zoomInButton_Click);
             // 
@@ -81,14 +79,14 @@
             this.zoomOutButton.Image = ((System.Drawing.Image)(resources.GetObject("zoomOutButton.Image")));
             this.zoomOutButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zoomOutButton.Name = "zoomOutButton";
-            this.zoomOutButton.Size = new System.Drawing.Size(23, 24);
+            this.zoomOutButton.Size = new System.Drawing.Size(23, 22);
             this.zoomOutButton.Text = "-";
             this.zoomOutButton.Click += new System.EventHandler(this.zoomOutButton_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // beforeButton
             // 
@@ -96,7 +94,7 @@
             this.beforeButton.Image = ((System.Drawing.Image)(resources.GetObject("beforeButton.Image")));
             this.beforeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.beforeButton.Name = "beforeButton";
-            this.beforeButton.Size = new System.Drawing.Size(41, 24);
+            this.beforeButton.Size = new System.Drawing.Size(34, 22);
             this.beforeButton.Text = "Prev";
             this.beforeButton.Click += new System.EventHandler(this.beforeButton_Click);
             // 
@@ -106,7 +104,7 @@
             this.nextButton.Image = ((System.Drawing.Image)(resources.GetObject("nextButton.Image")));
             this.nextButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(44, 24);
+            this.nextButton.Size = new System.Drawing.Size(35, 22);
             this.nextButton.Text = "Next";
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
@@ -116,7 +114,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(39, 24);
+            this.toolStripButton1.Size = new System.Drawing.Size(31, 22);
             this.toolStripButton1.Text = "Edit";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -124,30 +122,30 @@
             // 
             this.KesitGoster0.AutoScroll = true;
             this.KesitGoster0.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.KesitGoster0.Location = new System.Drawing.Point(315, 43);
-            this.KesitGoster0.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.KesitGoster0.Location = new System.Drawing.Point(236, 25);
+            this.KesitGoster0.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.KesitGoster0.Name = "KesitGoster0";
-            this.KesitGoster0.Size = new System.Drawing.Size(933, 215);
+            this.KesitGoster0.Size = new System.Drawing.Size(700, 175);
             this.KesitGoster0.TabIndex = 1;
             this.KesitGoster0.Paint += new System.Windows.Forms.PaintEventHandler(this.KesitGoster0_Paint);
             // 
             // KesitGoster1
             // 
             this.KesitGoster1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.KesitGoster1.Location = new System.Drawing.Point(315, 301);
-            this.KesitGoster1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.KesitGoster1.Location = new System.Drawing.Point(236, 240);
+            this.KesitGoster1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.KesitGoster1.Name = "KesitGoster1";
-            this.KesitGoster1.Size = new System.Drawing.Size(933, 215);
+            this.KesitGoster1.Size = new System.Drawing.Size(700, 175);
             this.KesitGoster1.TabIndex = 1;
             this.KesitGoster1.Paint += new System.Windows.Forms.PaintEventHandler(this.KesitGoster1_Paint);
             // 
             // KesitGoster2
             // 
             this.KesitGoster2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.KesitGoster2.Location = new System.Drawing.Point(315, 559);
-            this.KesitGoster2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.KesitGoster2.Location = new System.Drawing.Point(236, 429);
+            this.KesitGoster2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.KesitGoster2.Name = "KesitGoster2";
-            this.KesitGoster2.Size = new System.Drawing.Size(933, 215);
+            this.KesitGoster2.Size = new System.Drawing.Size(700, 175);
             this.KesitGoster2.TabIndex = 1;
             this.KesitGoster2.Paint += new System.Windows.Forms.PaintEventHandler(this.KesitGoster2_Paint);
             // 
@@ -156,11 +154,10 @@
             this.Hatalarlistbox.BackColor = System.Drawing.SystemColors.MenuBar;
             this.Hatalarlistbox.DisplayMember = "baslangic";
             this.Hatalarlistbox.FormattingEnabled = true;
-            this.Hatalarlistbox.ItemHeight = 16;
-            this.Hatalarlistbox.Location = new System.Drawing.Point(15, 31);
-            this.Hatalarlistbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Hatalarlistbox.Location = new System.Drawing.Point(11, 25);
+            this.Hatalarlistbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Hatalarlistbox.Name = "Hatalarlistbox";
-            this.Hatalarlistbox.Size = new System.Drawing.Size(265, 740);
+            this.Hatalarlistbox.Size = new System.Drawing.Size(200, 576);
             this.Hatalarlistbox.TabIndex = 2;
             this.Hatalarlistbox.ValueMember = "baslangic";
             this.Hatalarlistbox.SelectedIndexChanged += new System.EventHandler(this.Hatalarlistbox_SelectedIndexChanged);
@@ -168,64 +165,34 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 10);
+            this.label1.Location = new System.Drawing.Point(27, 8);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 17);
+            this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Hatalar";
             // 
-            // kesitisim1
+            // SelectionBackGround
             // 
-            this.kesitisim1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.kesitisim1.AutoSize = true;
-            this.kesitisim1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.kesitisim1.ForeColor = System.Drawing.Color.Red;
-            this.kesitisim1.Location = new System.Drawing.Point(720, 260);
-            this.kesitisim1.Name = "kesitisim1";
-            this.kesitisim1.Size = new System.Drawing.Size(109, 39);
-            this.kesitisim1.TabIndex = 0;
-            this.kesitisim1.Text = "label2";
-            // 
-            // Kesitisim2
-            // 
-            this.Kesitisim2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.Kesitisim2.AutoSize = true;
-            this.Kesitisim2.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Kesitisim2.ForeColor = System.Drawing.Color.Red;
-            this.Kesitisim2.Location = new System.Drawing.Point(720, 518);
-            this.Kesitisim2.Name = "Kesitisim2";
-            this.Kesitisim2.Size = new System.Drawing.Size(109, 39);
-            this.Kesitisim2.TabIndex = 0;
-            this.Kesitisim2.Text = "label2";
-            // 
-            // Kesitisim0
-            // 
-            this.Kesitisim0.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.Kesitisim0.AutoSize = true;
-            this.Kesitisim0.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.Kesitisim0.ForeColor = System.Drawing.Color.Red;
-            this.Kesitisim0.Location = new System.Drawing.Point(720, 2);
-            this.Kesitisim0.Name = "Kesitisim0";
-            this.Kesitisim0.Size = new System.Drawing.Size(109, 39);
-            this.Kesitisim0.TabIndex = 0;
-            this.Kesitisim0.Text = "label2";
+            this.SelectionBackGround.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.SelectionBackGround.Location = new System.Drawing.Point(227, 205);
+            this.SelectionBackGround.Name = "SelectionBackGround";
+            this.SelectionBackGround.Size = new System.Drawing.Size(720, 220);
+            this.SelectionBackGround.TabIndex = 0;
             // 
             // FormPopup
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(1312, 795);
-            this.Controls.Add(this.Kesitisim2);
-            this.Controls.Add(this.Kesitisim0);
-            this.Controls.Add(this.kesitisim1);
+            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ClientSize = new System.Drawing.Size(984, 622);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Hatalarlistbox);
             this.Controls.Add(this.KesitGoster2);
             this.Controls.Add(this.KesitGoster1);
             this.Controls.Add(this.KesitGoster0);
             this.Controls.Add(this.toolStrip1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Controls.Add(this.SelectionBackGround);
             this.Name = "FormPopup";
             this.Text = "FormPopup";
             this.Load += new System.EventHandler(this.FormPopup_Load);
@@ -251,8 +218,6 @@
         private System.Windows.Forms.Panel KesitGoster2;
         private System.Windows.Forms.ListBox Hatalarlistbox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label kesitisim1;
-        private System.Windows.Forms.Label Kesitisim2;
-        private System.Windows.Forms.Label Kesitisim0;
+        private System.Windows.Forms.FlowLayoutPanel SelectionBackGround;
     }
 }
