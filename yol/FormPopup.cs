@@ -271,7 +271,7 @@ namespace yol
         {
             int _index = lookatIdex;
             if (lookatIdex == 0) { _index = 0; }
-            
+            //ekleme
             kesitciz(_index, e);
         }
 
