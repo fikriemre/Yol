@@ -525,7 +525,7 @@ namespace yol
                                 richTextBox1.AppendText((kesitler[k].baslangic.ToString() + " -- " + kesitler[k].kesitPoints[p].kesitName + "\n"));
                             }
                         }
-                      
+                      //muzo
                     }
                 }
             }
