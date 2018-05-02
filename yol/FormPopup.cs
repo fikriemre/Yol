@@ -29,30 +29,41 @@ namespace yol
         HataListe hh;
 
         List<int> errors = new List<int>();
-        List<int> errortype = new List<int>(); 
+
+        /// <summary>
+        /// 0= bos isim 1= aynı isim 2= o ve a yanlış yerde
+        /// </summary>
+        List<int> errortype = new List<int>();
+
+
+
+
 
         int errorsIndex = 0;
         public FormPopup()
         {
             InitializeComponent();
-           // hh = new HataListe();
+            // hh = new HataListe();
         }
 
         public void SetKesitler(List<Kesit> kesitler)
         {
             this.kesitler = kesitler;
+            hatakontrol();
+
+            /*
             for (int i = 0; i<kesitler.Count;i++)
             {
                 Hatalarlistbox.Items.Add(i.ToString());
-            }
+            }*/
             for (int aa = 0; aa < 10; aa++)
             {
-               // Hatalarlistbox.Items.Add(kesitler[aa]);
+                // Hatalarlistbox.Items.Add(kesitler[aa]);
                 //Hatalarlistbox.Items[Hatalarlistbox.Items.Count - 1] = a.baslangic.ToString()
 
 
 
-               // Hatalarlistbox.Items.Add(new (index = aa,_name="mm"));
+                // Hatalarlistbox.Items.Add(new (index = aa,_name="mm"));
 
                 // list.Items.add(new ListBoxItem("name", "value"));
             }
@@ -66,21 +77,32 @@ namespace yol
             {
                 for (int k = 0; k < kesitler[s].kesitPoints.Count; k++)
                 {
-                    bool breaker = false;
+
                     for (int y = 0; y < kesitler[s].kesitPoints.Count; y++)
                     {
+
+
 
                         if (y != k && kesitler[s].kesitPoints[k].kesitName == kesitler[s].kesitPoints[y].kesitName)
                         {
                             errors.Add(s);
-                            breaker = true;
-                            break;
+                            errortype.Add(1);
+
                         }
-                        if (breaker) { break; }
+                        if (kesitler[s].kesitPoints[y].kesitName == "")
+                        {
+                            errors.Add(s);
+                            errortype.Add(0);
+                        }
+
 
                     }
-                    if (breaker) { break; }
+
                 }
+            }
+            for (int i = 0; i < errors.Count; i++)
+            {
+                Hatalarlistbox.Items.Add(errortype[i].ToString());
             }
 
         }
@@ -92,7 +114,7 @@ namespace yol
 
 
 
-                
+
                 for (int s = 0; s < kesitler.Count; s++)
                 {
                     pp = new PointF[kesitler[s].kesitPoints.Count];
@@ -165,7 +187,7 @@ namespace yol
         private void nextButton_Click(object sender, EventArgs e)
         {
 
-            
+
             lookatIdex = lookatIdex + 1;
             if (lookatIdex > kesitler.Count - 1) { lookatIdex = kesitler.Count - 1; }
             KesitGoster0.Invalidate();
@@ -191,7 +213,6 @@ namespace yol
                 hh = new HataListe();
                 hh.SetWindow(this, kesitler[lookatIdex]);
                 hh.Show(this);
-                ///
             }*/
         }
 
@@ -201,19 +222,21 @@ namespace yol
             int s = index;
             pp = new PointF[kesitler[s].kesitPoints.Count];
 
-            
+
             PointF _offsetmin = kesitler[s].kesitPoints[0].point;
-            PointF _offsetmax = kesitler[s].kesitPoints[kesitler[s].kesitPoints.Count-1].point;
-            
-            for(int l = 0;l< kesitler[s].kesitPoints.Count; l++ )
+            PointF _offsetmax = kesitler[s].kesitPoints[kesitler[s].kesitPoints.Count - 1].point;
+
+            for (int l = 0; l < kesitler[s].kesitPoints.Count; l++)
             {
-                if((kesitler[s].kesitPoints[l].point.Y)<= _offsetmin.Y) { _offsetmin.Y = kesitler[s].kesitPoints[l].point.Y; }
+                if ((kesitler[s].kesitPoints[l].point.Y) <= _offsetmin.Y) { _offsetmin.Y = kesitler[s].kesitPoints[l].point.Y; }
                 if ((kesitler[s].kesitPoints[l].point.Y) >= _offsetmax.Y) { _offsetmax.Y = kesitler[s].kesitPoints[l].point.Y; }
             }
-             
+
 
             float _scale = 450 / (_offsetmax.X - _offsetmin.X);
-            float _yoffset = 100 + (_offsetmax.Y - _offsetmin.Y) * _scale;
+            float _yoffset = (_offsetmax.Y - _offsetmin.Y) * _scale;
+            Kesitisim0.Text = _yoffset.ToString();
+            //if (_yoffset < 50) { _yoffset = 50 - _yoffset / 2; } else { _yoffset = 50 + _yoffset/2; }
 
 
 
@@ -222,15 +245,15 @@ namespace yol
             {
                 pp[k] = kesitler[s].kesitPoints[k].point;
 
-                pp[k].X = (pp[k].X- _offsetmin.X) * _scale+50;
-                pp[k].Y = (pp[k].Y- _offsetmin.Y ) * _scale;
-                continue;
+                pp[k].X = (pp[k].X - _offsetmin.X) * _scale + 50;
+                pp[k].Y = (pp[k].Y - _offsetmin.Y) * _scale;
+
 
 
 
                 Font font = new Font(FontFamily.GenericSansSerif, 0.3f * scales[defscale], FontStyle.Regular);
-
-                if (s == lookatIdex)
+                /*
+                if (k == lookatIdex)
                 {
                     e.Graphics.DrawString(kesitler[s].kesitPoints[k].kesitName, font, new SolidBrush(Color.Black), pp[k]);
                     if (k == 0)
@@ -238,18 +261,13 @@ namespace yol
                         e.Graphics.DrawString(s.ToString() + "  EKS:" + kesitler[s].baslangic.ToString(), font, new SolidBrush(Color.Blue), new PointF(pp[k].X, pp[k].Y - (2 * scales[defscale])));
                     }
                 }
-                else
+                else*/
+                e.Graphics.DrawString(kesitler[s].kesitPoints[k].kesitName, font, new SolidBrush(Color.Blue), pp[k]);
+                if (k == 0)
                 {
-                    e.Graphics.DrawString(kesitler[s].kesitPoints[k].kesitName, font, new SolidBrush(Color.Black), pp[k]);
-                    if (k == 0)
-                    {
-                        e.Graphics.DrawString(s.ToString() + "  EKS:" + kesitler[s].baslangic.ToString(), font, new SolidBrush(Color.Black), new PointF(pp[k].X, pp[k].Y - (2 * scales[defscale])));
-                    }
+                    e.Graphics.DrawString(s.ToString() + "  EKS:" + kesitler[s].baslangic.ToString(), font, new SolidBrush(Color.Black), new PointF(pp[k].X, pp[k].Y - (2 * scales[defscale])));
                 }
-                if (k == 0 && s == lookatIdex)
-                {
-                    k_point = pp[k];
-                }
+
 
             }
             //System.Diagnostics.Trace.WriteLine("------");
@@ -258,30 +276,34 @@ namespace yol
             e.Graphics.DrawLines(pen, pp);
 
 
-            
+
         }
 
         private void KesitGoster0_Paint(object sender, PaintEventArgs e)
         {
             int _index = lookatIdex - 1;
-            if (lookatIdex == 0) { return; }
+            if (lookatIdex == 0) { Kesitisim0.Text = ""; return; }
             kesitciz(_index, e);
+            //Kesitisim0.Text = kesitler[_index].baslangic.ToString();
+
         }
 
         private void KesitGoster1_Paint(object sender, PaintEventArgs e)
         {
             int _index = lookatIdex;
             if (lookatIdex == 0) { _index = 0; }
-            //ekleme
+
             kesitciz(_index, e);
+            kesitisim1.Text = kesitler[_index].baslangic.ToString();
         }
 
         private void KesitGoster2_Paint(object sender, PaintEventArgs e)
         {
             int _index = lookatIdex + 1;
             if (lookatIdex == 0) { _index = 1; }
-            if(_index >= kesitler.Count - 1) { return; }
+            if (_index >= kesitler.Count) { Kesitisim2.Text = ""; return; }
             kesitciz(_index, e);
+            Kesitisim2.Text = kesitler[_index].baslangic.ToString();
         }
 
         private void Hatalarlistbox_SelectedIndexChanged(object sender, EventArgs e)
