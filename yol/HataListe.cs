@@ -13,29 +13,26 @@ namespace yol
     public partial class HataListe : Form
     {
         Kesit k;
-        Form parent;
+        FormPopup parent;
         List<TextBox> textboxlar = new List<TextBox>();
+        List<Label> labels = new List<Label>();
         List<int> errors = new List<int>();
+        
         public HataListe()
         {
             InitializeComponent();
         }
 
-        public void SetWindow(Form _p, Kesit _k, List<int> _e)
-        {
-            errors = _e;
+        public void SetWindow(FormPopup _p, Kesit _k)
+        {             
             k = _k;
             parent = _p;
-            for (int e = 0; e < errors.Count; e++)
-            {
-                errorsList.Items.Add(errors[e].ToString());
-            }
             for (int i = 0; i < k.kesitPoints.Count; i++)
             {
                 Label ll = new Label();
                 ll.Text = k.kesitPoints[i].kesitName;
                 ll.Location = new Point(120, 20 + (i * 30));
-
+                labels.Add(ll);
 
                 TextBox tb = new TextBox();
                 tb.Text = k.kesitPoints[i].kesitName;
@@ -61,6 +58,8 @@ namespace yol
             Button bt = (Button)sender;
             //labellar[(int)bt.Tag].Invalidate();
             k.kesitPoints[(int)bt.Tag].kesitName = textboxlar[(int)bt.Tag].Text;
+            labels[(int)bt.Tag].Text = textboxlar[(int)bt.Tag].Text;
+            parent.hatakontrol();
 
             parent.Invalidate();
         }

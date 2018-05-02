@@ -23,32 +23,35 @@ namespace yol
         float offsety = 0;
         bool bresetView = true;
         bool firstReset = true;
-        int lookatIdex = 0;
+        int _lookatIndex = 0;
+        public int lookatIdex
+        {
+            get { return _lookatIndex; }
+            set
+            {
+                _lookatIndex = value;
+                fillEditpanel();
+            }
+        }
+        List<TextBox> textboxlar = new List<TextBox>();
+        List<Label> labels = new List<Label>();
         float[] scales = { 10f, 20f, 30f, 40f, 50f };
         int defscale = 3;
-        HataListe hh;
+        HataListe hatalistbox;
 
-        List<int> errors = new List<int>();
+        List<Kesithata> hatalar;
 
-        /// <summary>
-        /// 0= bos isim 1= aynı isim 2= o ve a yanlış yerde
-        /// </summary>
-        List<int> errortype = new List<int>();
-
-
-
-
-
-        int errorsIndex = 0;
         public FormPopup()
         {
+            lookatIdex = 0;
             InitializeComponent();
-            // hh = new HataListe();
+            hatalistbox = new HataListe();
         }
 
         public void SetKesitler(List<Kesit> kesitler)
         {
             this.kesitler = kesitler;
+
             hatakontrol();
 
             /*
@@ -68,42 +71,65 @@ namespace yol
                 // list.Items.add(new ListBoxItem("name", "value"));
             }
         }
-        private void hatakontrol()
+        public void hatakontrol()
         {
-            errors = new List<int>();
-            errortype = new List<int>();
 
+            hatalar = new List<Kesithata>();
+            
+            Hatalarlistbox.Items.Clear();
             for (int s = 0; s < kesitler.Count; s++)
             {
+                bool _ekskontrol = true;
                 for (int k = 0; k < kesitler[s].kesitPoints.Count; k++)
                 {
-
-                    for (int y = 0; y < kesitler[s].kesitPoints.Count; y++)
+                    if (_ekskontrol)
                     {
+                        if (kesitler[s].kesitPoints[k].kesitName == "EKS") { _ekskontrol = false; }
+                    }
+
+                    for (int y = k + 1; y < kesitler[s].kesitPoints.Count; y++)
+                    {
+                        if (y == k) { continue; }
 
 
 
-                        if (y != k && kesitler[s].kesitPoints[k].kesitName == kesitler[s].kesitPoints[y].kesitName)
+                        if (kesitler[s].kesitPoints[k].kesitName == kesitler[s].kesitPoints[y].kesitName)
                         {
-                            errors.Add(s);
-                            errortype.Add(1);
-
+                            if (kesitler[s].kesitPoints[k].kesitName == "") { continue; }
+                            Kesithata hata = new Kesithata();
+                            hata.info = kesitler[s].kesitPoints[k].kesitName;
+                            hata.setKesithata(kesitler[s], 1, s);
+                            hatalar.Add(hata);
                         }
                         if (kesitler[s].kesitPoints[y].kesitName == "")
                         {
-                            errors.Add(s);
-                            errortype.Add(0);
+                            if (hatalar[hatalar.Count - 1].kesit == kesitler[s] && hatalar[hatalar.Count - 1].hatatipi == 0) { continue; }
+                            Kesithata hata = new Kesithata();
+                            hata.setKesithata(kesitler[s], 0, s);
+                            hatalar.Add(hata);
                         }
 
 
                     }
 
                 }
+                if (_ekskontrol)
+                {
+                    Kesithata hata = new Kesithata();
+                    hata.setKesithata(kesitler[s], 3, s);
+                    hatalar.Add(hata);
+
+                }
+
             }
-            for (int i = 0; i < errors.Count; i++)
+            for (int i = 0; i < hatalar.Count; i++)
             {
-                Hatalarlistbox.Items.Add(errortype[i].ToString());
+
+                Hatalarlistbox.Items.Add(hatalar[i]);
             }
+            KesitGoster0.Invalidate();
+            KesitGoster1.Invalidate();
+            KesitGoster2.Invalidate();
 
         }
         private void FormPopup_Paint(object sender, PaintEventArgs e)
@@ -187,7 +213,7 @@ namespace yol
         private void nextButton_Click(object sender, EventArgs e)
         {
 
-
+            Hatalarlistbox.SelectedIndex = -1;
             lookatIdex = lookatIdex + 1;
             if (lookatIdex > kesitler.Count - 1) { lookatIdex = kesitler.Count - 1; }
             KesitGoster0.Invalidate();
@@ -203,17 +229,21 @@ namespace yol
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            /*if (!hh.IsDisposed)
+            
+            if (!hatalistbox.IsDisposed)
             {
-                hh.SetWindow(this, kesitler[lookatIdex]);
-                hh.Show(this);
+                hatalistbox.SetWindow(this, kesitler[lookatIdex]);
+                hatalistbox.Show(this);
             }
             else
             {
-                hh = new HataListe();
-                hh.SetWindow(this, kesitler[lookatIdex]);
-                hh.Show(this);
-            }*/
+                hatalistbox = new HataListe();
+                hatalistbox.SetWindow(this, kesitler[lookatIdex]);
+                hatalistbox.Show(this);
+            }
+
+
+
         }
 
 
@@ -235,7 +265,7 @@ namespace yol
 
             float _scale = 450 / (_offsetmax.X - _offsetmin.X);
             float _yoffset = (_offsetmax.Y - _offsetmin.Y) * _scale;
-            Kesitisim0.Text = _yoffset.ToString();
+
             //if (_yoffset < 50) { _yoffset = 50 - _yoffset / 2; } else { _yoffset = 50 + _yoffset/2; }
 
 
@@ -284,7 +314,7 @@ namespace yol
             int _index = lookatIdex - 1;
             if (lookatIdex == 0) { Kesitisim0.Text = ""; return; }
             kesitciz(_index, e);
-            //Kesitisim0.Text = kesitler[_index].baslangic.ToString();
+            Kesitisim0.Text = kesitler[_index].baslangic.ToString();
 
         }
 
@@ -310,11 +340,63 @@ namespace yol
         {
             //Kesit a = (Kesit)Hatalarlistbox.Items[Hatalarlistbox.SelectedIndex];
             //MessageBox.Show(a.kesitPoints[0].pointx.ToString());
-            lookatIdex = Hatalarlistbox.SelectedIndex;
+            //  lookatIdex = Hatalarlistbox.SelectedIndex;
+            // lookatIdex = (int)Hatalarlistbox.SelectedValue;
+            if (Hatalarlistbox.SelectedIndex == -1) { return; }
+            Kesithata v = (Kesithata)Hatalarlistbox.SelectedItem;
+            lookatIdex = v.kesitindex;
+
             KesitGoster0.Invalidate();
             KesitGoster1.Invalidate();
             KesitGoster2.Invalidate();
 
+        }
+        private void fillEditpanel()
+        {
+                        
+            if (kesitler == null) { return; }
+            if(lookatIdex>= kesitler.Count) { return; }
+            if (EditPanel.Controls.Count > 0) { EditPanel.Controls.Clear(); }
+            if (textboxlar.Count>0)
+            {
+                textboxlar.Clear();
+                labels.Clear();
+            }
+            Kesit k = kesitler[lookatIdex];
+            
+            for (int i = 0; i < k.kesitPoints.Count; i++)
+            {
+                Label ll = new Label();
+                ll.Text = k.kesitPoints[i].kesitName;
+                ll.Location = new Point(120, 20 + (i * 30));
+                labels.Add(ll);
+
+                TextBox tb = new TextBox();
+                tb.Text = k.kesitPoints[i].kesitName;
+                tb.Location = new Point(200, 20 + (i * 30));
+                textboxlar.Add(tb);
+
+                Button bb = new Button();
+                bb.Text = "Değiştir";
+                bb.Tag = i;
+                bb.Location = new Point(400, 20 + (i * 30));
+
+                bb.Click += new EventHandler(degistirbutonEvent);
+
+
+                EditPanel.Controls.Add(bb);
+                EditPanel.Controls.Add(tb);
+                EditPanel.Controls.Add(ll);
+            }
+        }
+        void degistirbutonEvent(object sender, System.EventArgs e)
+        {
+            Kesit k = kesitler[lookatIdex];
+            Button bt = (Button)sender;
+            //labellar[(int)bt.Tag].Invalidate();
+            k.kesitPoints[(int)bt.Tag].kesitName = textboxlar[(int)bt.Tag].Text;
+            labels[(int)bt.Tag].Text = textboxlar[(int)bt.Tag].Text;
+            hatakontrol();            
         }
     }
 }
