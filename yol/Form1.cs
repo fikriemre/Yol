@@ -24,7 +24,7 @@ namespace yol
         List<Kesit> eklenecekler = new List<Kesit>();
         float basx2, basy2;
         private List<Kesit> kesitler;
-        FormPopup EKSform;
+        public FormPopup EKSform;
         PointF[] pp;
         PointF k_point;
         PointF p1;
