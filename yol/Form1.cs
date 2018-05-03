@@ -54,6 +54,7 @@ namespace yol
 
         public void starter()
         {
+            Console.WriteLine("re");
             read_file();
             //if (read_file() == 1)
             //{
@@ -525,7 +526,7 @@ namespace yol
                                 richTextBox1.AppendText((kesitler[k].baslangic.ToString() + " -- " + kesitler[k].kesitPoints[p].kesitName + "\n"));
                             }
                         }
-                      //muzo
+                      
                     }
                 }
             }
