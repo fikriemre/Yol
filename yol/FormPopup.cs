@@ -30,6 +30,7 @@ namespace yol
             set
             {
                 _lookatIndex = value;
+                if (lookatIdex < 0) lookatIdex = 0;
                 fillEditpanel();
             }
         }

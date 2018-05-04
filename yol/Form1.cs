@@ -54,7 +54,7 @@ namespace yol
 
         public void starter()
         {
-            Console.WriteLine("re");
+            //Console.WriteLine("re");
             read_file();
             //if (read_file() == 1)
             //{
@@ -64,34 +64,10 @@ namespace yol
         }
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-
-            Random rnd = new Random();
-            int v = rnd.Next(500);
-
             System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Color.Red);
             System.Drawing.Pen pen2 = new System.Drawing.Pen(System.Drawing.Color.Blue);
             System.Drawing.Pen pen3 = new System.Drawing.Pen(System.Drawing.Color.Green);
 
-            /*e.Graphics.DrawRectangle(pen2, new System.Drawing.Rectangle(0, 0, v, 500));
-            e.Graphics.DrawArc(pen, new System.Drawing.Rectangle(0, 0, v, 500), 90, 90);*/
-
-            /*if (noktalarint != null)
-            {
-                for (int i = 0; i < noktalarint.Length - 3; i += 2)
-                {
-                    e.Graphics.DrawLine(pen, (noktalarint[i] * scales[defscale]) + offsetx, (noktalarint[i + 1] * scales[defscale]) + offsety,
-                        (noktalarint[i + 2] * scales[defscale]) + offsetx, (noktalarint[i + 3] * scales[defscale]) + offsety);
-                }
-            }
-
-            if (noktalarint2 != null)
-            {
-                for (int i = 0; i < noktalarint2.Length - 3; i += 2)
-                {
-                    e.Graphics.DrawLine(pen2, (noktalarint2[i] * scales[defscale]) + offsetx, (noktalarint2[i + 1] * scales[defscale]) + offsety,
-                         (noktalarint2[i + 2] * scales[defscale]) + offsetx, (noktalarint2[i + 3] * scales[defscale]) + offsety);
-                }
-            }*/
             if (points != null)
             {
                 for (int i = 0; i < points.Count - 2; i += 2)
@@ -531,13 +507,7 @@ namespace yol
                 }
             }
 
-            for(int e = 0; e < eklenecekler.Count; e++)
-            {
-                eklenecekler[e].baslangic += 0.01f;
-                kesitler.Add(eklenecekler[e]);
-                  
-            }
-            kesitler = kesitler.OrderBy(o => o.baslangic).ToList();
+            
             updateGraphic();
 
 
@@ -570,6 +540,13 @@ namespace yol
 
         private void write_file()
         {
+            for (int e = 0; e < eklenecekler.Count; e++)
+            {
+                eklenecekler[e].baslangic += 0.01f;
+                kesitler.Add(eklenecekler[e]);
+
+            }
+            kesitler = kesitler.OrderBy(o => o.baslangic).ToList();
             double anlikuzunluk = KMO;
             XDocument maindocument = new XDocument();
             XElement landxml = new XElement("LandXml");
