@@ -275,9 +275,14 @@ namespace yol
             for (int k = 0; k < kesitler[s].kesitPoints.Count; k++)
             {
                 pp[k] = kesitler[s].kesitPoints[k].point;
-
+                
                 pp[k].X = (pp[k].X - _offsetmin.X) * _scale + 50;
-                pp[k].Y = (pp[k].Y - _offsetmin.Y) * _scale;
+                pp[k].Y = (pp[k].Y - _offsetmin.Y) * _scale - 50;
+
+                pp[k].Y = pp[k].Y * -1+_yoffset;
+
+                
+
 
 
 
